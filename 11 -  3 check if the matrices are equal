@@ -130,33 +130,23 @@ int SumOfMatrix(int m[100][100], short rows, short cols) {
 
 // problem 11 / 3
 
-bool AreEqualMatrices(int m1[100][100], int m2[100][100], short rows, short cols) {
-	for (int i = 0; i < rows; i++)
-		for (int j = 0; j < cols; j++)
-			if (m1[i][j] != m2[i][j])
-				return false;
-	return true;
+
+bool AreEquivalentMatrices(int m1[100][100], int m2[100][100], short rows, short cols) {
+	return (SumOfMatrix(m1, rows, cols) == SumOfMatrix(m2, rows, cols));
 }
 
 
 int main() {
 	srand((unsigned)time(NULL));
 	int m1[100][100], m2[100][100];
-	FillMatrixWithRandomNumbers(m1, 3, 3);
+	FillMatrixWithOrderedNumbers(m1, 3, 3);
 	FillMatrixWithOrderedNumbers(m2, 3, 3);
 	cout << endl << SumOfMatrix(m2,3,3) << endl;
 	PrintMatrix(m1, 3, 3);
 	PrintMatrix(m2, 3, 3);
-	if (AreEqualMatrices(m1, m2, 3, 3))
-		cout << "Equal !!! ";
+	if (AreEquivalentMatrices(m1, m2, 3, 3))
+		cout << "Equivalent !!! ";
 	else {
-		cout << "Not equal bro !!!";
+		cout << "Not Equivalent bro !!!";
 	}
 }
-	
-
-
-
-
-
- 
