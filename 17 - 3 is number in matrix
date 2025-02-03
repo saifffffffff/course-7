@@ -184,6 +184,7 @@ bool IsNumberInMatrix(int m[100][100], int NumToFind,short rows, short cols) {
 		for (int j = 0; j < cols; j++)
 			if (m[i][j] == NumToFind)
 				return true;
+	return false;
 }
 
 
