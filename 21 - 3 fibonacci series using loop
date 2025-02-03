@@ -1,0 +1,54 @@
+#include "MyLib.h"
+#include <array>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <chrono>
+#include <fstream>
+#include <ctime>
+
+
+using namespace std;
+
+
+// problem 21 / 3
+
+// my func 
+void PrintFibonacciSeries1(int Iterations) {
+	int PreNum = 0, NextNum = 1;
+	
+	cout << NextNum << " ";
+	
+	for (int i = 1; i < Iterations  ; i++) {
+		
+		cout << PreNum + NextNum << " ";
+		
+		NextNum += PreNum ;
+		
+		PreNum = NextNum - PreNum;
+		
+	}
+}
+
+
+// abu had's func 
+void PrintFibonacciSeries3(int Iterations) {
+	int Pre1Num = 1, Pre2Num = 0, FebNum = 0;
+	cout << Pre1Num << " ";
+	for (int i = 1; i < Iterations; i++) {
+		FebNum = Pre1Num + Pre2Num;
+		cout << FebNum << " ";
+		Pre1Num = FebNum;
+		Pre2Num = Pre1Num - Pre2Num;
+	}
+
+}
+
+int main() {
+	srand((unsigned)time(NULL));
+	PrintFibonacciSeries1(10);
+	cout << endl;
+	PrintFibonacciSeries3(10);
+}
