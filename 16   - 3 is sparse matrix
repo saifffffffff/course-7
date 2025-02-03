@@ -192,7 +192,7 @@ bool MyIsSparseMatrix(int m[100][100], short rows, short cols) {
 
 bool IsSparseMatrix(int m[100][100], short rows, short cols) {
 	unsigned short MatrixSize = rows * cols;
-	return (CountNumberInMatrix(m, 0, rows, cols) >= (MatrixSize / 2));
+	return (CountNumberInMatrix(m, 0, rows, cols) > (MatrixSize / 2));
 }
 
 
