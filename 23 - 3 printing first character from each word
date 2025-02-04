@@ -1,0 +1,99 @@
+#include "MyLib.h"
+#include <array>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <chrono>
+#include <fstream>
+#include <ctime>
+
+
+using namespace std;
+
+
+void PrintFibonacciSeries1(int Iterations) {
+	int PreNum = 0, NextNum = 1, febNum = 0;
+	
+	cout << NextNum << " ";
+	
+	for (int i = 1; i < Iterations  ; i++) {
+		febNum = PreNum + NextNum;
+		cout <<  febNum << " ";
+		
+		PreNum = NextNum;
+		NextNum = febNum;
+	}
+}
+void PrintFibonacciSeries2(int Iterations) {
+	int Pre1Num = 1, Pre2Num = 0, FebNum = 0;
+	cout << Pre1Num << " ";
+	for (int i = 1; i < Iterations; i++) {
+		FebNum = Pre1Num + Pre2Num;
+		cout << FebNum << " ";
+		Pre1Num = FebNum;
+		Pre2Num = Pre1Num - Pre2Num;
+	}
+
+}
+void PrintFibonacciSeriesUsingRecursion(int Iterations) {
+	if (Iterations == 1) return ;
+
+	static int PreNum = 1, NextNum = 0 , febNum = 0;
+	
+	febNum = NextNum + PreNum;
+	cout <<  febNum << " ";
+	
+	PreNum = NextNum;
+	NextNum = febNum;
+	
+	PrintFibonacciSeriesUsingRecursion(Iterations - 1);
+}
+void PrintFibonacciSeriesUsingRecursion(short Iterations, int currentNumber, int PreviousNumber) {
+	
+	int FebonacciNumber = 0;
+	if (Iterations > 0 )
+	{
+		FebonacciNumber = currentNumber + PreviousNumber;
+		PreviousNumber = currentNumber;
+		currentNumber = FebonacciNumber;
+		cout << FebonacciNumber << " ";
+	}
+	PrintFibonacciSeriesUsingRecursion(Iterations - 1, currentNumber, PreviousNumber);
+}
+
+vector <string> StringSpriter(string text) {
+	vector <string> SpritedText;
+	text += " ";
+	while (text != "") {
+		SpritedText.push_back(text.substr(0, text.find(' ', 0)));
+		text = text.substr(text.find(' ', 0) + 1 );
+	}
+	return SpritedText;
+}
+// problem 23 / 3
+
+
+void PrintFirstLetterFromEachWord(string text) {
+	
+	bool isFirstLetter = true;
+	for (int i = 0; i < text.length(); i++)
+	{
+		if (text[i] != ' ' && isFirstLetter)
+			cout << text[i] << " ";
+		isFirstLetter = (text[i] == ' ');
+	}
+}
+
+
+
+
+int main() {
+	srand((unsigned)time(NULL));
+	string text = "saif aldeen  abu haniye is my name and im";
+	
+
+	PrintFirstLetterFromEachWord(text);
+
+}
