@@ -1,0 +1,140 @@
+#include "MyLib.h"
+#include <array>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <chrono>
+#include <fstream>
+#include <ctime>
+
+
+using namespace std;
+
+
+
+bool IsUpper(char c) {
+	return (c >= 'A' && c <= 'Z');
+}
+bool IsLower(char c) {
+	return (c >= 'a' && c <= 'z');
+}
+char ToLower(char c) {
+	return IsUpper(c) ? c + 32 : c;
+}
+char ToUpper(char c) {
+	return IsLower(c) ? c - 32 : c;
+}
+vector <string> StringSpriter(string text) {
+	vector <string> SpritedText;
+	text += " ";
+	while (text != "") {
+		SpritedText.push_back(text.substr(0, text.find(' ', 0)));
+		text = text.substr(text.find(' ', 0) + 1 );
+	}
+	return SpritedText;
+}
+void PrintFirstLetterFromEachWord(string text) {
+	
+	bool isFirstLetter = true;
+	for (int i = 0; i < text.length(); i++)
+	{
+		if (text[i] != ' ' && isFirstLetter)
+			cout << text[i] << " ";
+		isFirstLetter = (text[i] == ' ');
+	}
+}
+string UpperFirstLetterInEachWord(string text) {
+	bool IsFirstLetter = true;
+	for (short i = 0; i < text.length(); i++) {
+		if (IsFirstLetter && text[i] != ' ') {
+			text[i] = ToUpper(text[i]);
+			IsFirstLetter = false;
+		}
+		if (text[i] == ' ')
+			IsFirstLetter = true;
+	}
+	return text;
+}
+string LowerFirstLetterInEachWord(string text) {
+	bool IsFirstLetter = true;
+	for (short i = 0; i < text.length(); i++) {
+		if (IsFirstLetter && text[i] != ' ') {
+			text[i] = ToLower(text[i]);
+			IsFirstLetter = false;
+		}
+		if (text[i] == ' ')
+			IsFirstLetter = true;
+	}
+	return text;
+}
+string UpperAllString(string text) {
+	for (short i = 0; i < text.length(); i++)
+	{
+		text[i] = ToUpper(text[i]);
+	}
+	return text;
+}
+string LowerAllString(string text) {
+	for (short i = 0; i < text.length(); i++)
+	{
+		text[i] = ToLower(text[i]);
+	}
+	return text;
+}
+char ConvertCase(char c) {
+	return IsUpper(c) ? ToLower(c) : ToUpper(c);
+}
+string ConvertAllStringCase(string text) {
+	for (int i = 0; i < text.length(); i++) {
+		text[i] = ConvertCase(text[i]);
+	}
+	return text;
+}
+
+short CountCapitalLetters(string text) {
+	short counter = 0;
+	for (int i = 0; i < text.length(); i++)
+		if (IsUpper(text[i]))
+			counter++;
+	return counter;
+}
+short CountSmallLetters(string text) {
+	short counter = 0;
+	for (int i = 0; i < text.length(); i++)
+		if (IsLower(text[i]))
+			counter++;
+	return counter;
+}
+
+short CountLetters(string text, enSymbol WhatToCount) {
+	short counter = 0;
+	for (short i = 0; i < text.length() ; i++) {
+		if (WhatToCount == CapitalLetter && IsUpper(text[i]))
+			counter++;
+		if (WhatToCount == SmallLetter && IsLower(text[i]))
+			counter++;
+	}
+	return counter;
+}
+
+
+ //problem 30 / 3
+
+short CountChar(string text, char c) {
+	short counter = 0;
+	for (int i = 0; i < text.length(); i++)
+		if (text[i] == c)
+			counter++;
+	return counter;
+}
+
+
+int main() {
+	srand((unsigned)time(NULL));
+	// method 1 
+	string text = Read::ReadString("string : \n");
+	char c = Read::ReadChar("char to count : ");
+	cout << "counter = " << CountChar(text, c);
+}
