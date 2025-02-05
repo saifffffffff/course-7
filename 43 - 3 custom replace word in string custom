@@ -1,0 +1,112 @@
+#include "MyLib.h"
+#include <array>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <chrono>
+#include <fstream>
+#include <ctime>
+
+
+using namespace std;
+
+
+string TrimLeft(string text) {
+	for (short i = 0; i < text.length(); i++)
+	{
+		if (text[i] != ' ')
+			return text.substr(i);
+	}
+}
+string TrimRight(string text) {
+	for (short i = text.size() - 1; i >= 0; i--)
+		if (text[i] != ' ')
+			return text.substr(0, i + 1);
+}
+string Trim(string text) {
+	return TrimRight(TrimLeft(text));
+}
+string JoinString(const vector <string> &  vString, const string & delimiter) {
+	if (vString.empty())
+		return "";
+	string text = "";
+	for (string word : vString) {
+		text +=	word + delimiter;
+	}
+	return text.substr(0, text.length() - delimiter.length());
+}
+string JoinString(string arr[] , const int &  size, const string & delimiter) {
+	
+	string text = "";
+	
+	for (short i = 0; i < size; i++)
+		text += arr[i] + delimiter;
+
+	return text.substr(0, text.length() - delimiter.length());
+}
+string ReverseString(const string & text1) {
+	
+	string text2 = "";
+	vector <string > vString = String::SpliteString(text1);
+	vector<string >::iterator iter = vString.end();
+	
+	while (iter != vString.begin()) {
+		iter--;
+		text2 += *iter + " ";
+	}
+	
+	return Trim(text2);
+
+}
+string ReplaceWordInString(string text, string wordToReplace, string replaceTo) {
+	short pos;
+	while ((pos = text.find(wordToReplace)) != string::npos) {
+		text.replace(pos, wordToReplace.length(), replaceTo);
+	}
+	return text;
+}
+
+
+//problem 43 / 3
+
+
+string ReplaceWordInStringCustom(string text, string wordToReplace, string replaceTo, bool MatchCase = true) {
+	
+
+	if (text.find(wordToReplace) == string::npos)
+		return text;
+
+	vector <string> vString = String::SpliteString(text);
+	
+	for (string& word : vString) {
+		if (MatchCase)
+		{
+			if (word == wordToReplace)
+				word = replaceTo;
+		}
+		else {
+			if (String::UpperAllString(word) == String::UpperAllString(wordToReplace))
+				word = replaceTo;
+		}
+
+	}
+	return JoinString(vString , " ");
+}
+
+
+
+
+int main() {
+	srand((unsigned)time(NULL));
+	string text = Read::ReadString("string : ");
+	string word = Read::ReadString("word to replace : ");
+	string wordToReplace = Read::ReadString("new word : ");
+	cout << ReplaceWordInStringCustom(text, word, wordToReplace , false);
+
+
+
+
+	return 0;
+}
