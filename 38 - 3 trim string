@@ -1,0 +1,49 @@
+#include "MyLib.h"
+#include <array>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <chrono>
+#include <fstream>
+#include <ctime>
+
+
+using namespace std;
+
+
+
+
+
+ //problem 38 / 3
+
+
+
+string TrimLeft(string text) {
+	for (short i = 0; i < text.length(); i++)
+	{
+		if (text[i] != ' ')
+			return text.substr(i);
+	}
+}
+string TrimRight(string text) {
+	for (short i = text.size() - 1; i >= 0; i--)
+		if (text[i] != ' ')
+			return text.substr(0, i + 1);
+}
+
+string Trim(string text) {
+	return TrimRight(TrimLeft(text));
+}
+
+
+
+
+int main() {
+	srand((unsigned)time(NULL));
+	
+	
+	cout <<"%" << Trim(Read::ReadString("write string : "))<< "%";
+	return 0;
+}
