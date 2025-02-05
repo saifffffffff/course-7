@@ -1,0 +1,67 @@
+#include "MyLib.h"
+#include <array>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <chrono>
+#include <fstream>
+#include <ctime>
+
+
+using namespace std;
+
+
+string TrimLeft(string text) {
+	for (short i = 0; i < text.length(); i++)
+	{
+		if (text[i] != ' ')
+			return text.substr(i);
+	}
+}
+string TrimRight(string text) {
+	for (short i = text.size() - 1; i >= 0; i--)
+		if (text[i] != ' ')
+			return text.substr(0, i + 1);
+}
+string Trim(string text) {
+	return TrimRight(TrimLeft(text));
+}
+string JoinString(const vector <string> &  vString, const string & delimiter) {
+	if (vString.empty())
+		return "";
+	string text = "";
+	for (string word : vString) {
+		text +=	word + delimiter;
+	}
+	return text.substr(0, text.length() - delimiter.length());
+}
+
+
+
+ //problem 40 / 3
+// overloading
+string JoinString(string arr[] , const int &  size, const string & delimiter) {
+	
+	string text = "";
+	
+	for (short i = 0; i < size; i++)
+		text += arr[i] + delimiter;
+
+	return text.substr(0, text.length() - delimiter.length());
+}
+
+
+
+int main() {
+	srand((unsigned)time(NULL));
+	string del = ",";
+	
+	string arr[] = { "saif", "ahmad", "khalid", "rami" };
+	vector <string > vec = { "saif" , "ahmad" , "khalid" , "rami" };
+	
+	cout << "join string from array : \n" << JoinString(arr, 4, del) << endl;
+	cout << "join string from vector : \n" << JoinString(vec, del);
+	return 0;
+}
