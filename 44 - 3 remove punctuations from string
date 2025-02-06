@@ -1,0 +1,140 @@
+#include "MyLib.h"
+#include <array>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <chrono>
+#include <fstream>
+#include <ctime>
+
+
+using namespace std;
+
+
+string TrimLeft(string text) {
+	for (short i = 0; i < text.length(); i++)
+	{
+		if (text[i] != ' ')
+			return text.substr(i);
+	}
+}
+string TrimRight(string text) {
+	for (short i = text.size() - 1; i >= 0; i--)
+		if (text[i] != ' ')
+			return text.substr(0, i + 1);
+}
+string Trim(string text) {
+	return TrimRight(TrimLeft(text));
+}
+string JoinString(const vector <string> &  vString, const string & delimiter) {
+	if (vString.empty())
+		return "";
+	string text = "";
+	for (string word : vString) {
+		text +=	word + delimiter;
+	}
+	return text.substr(0, text.length() - delimiter.length());
+}
+string JoinString(string arr[] , const int &  size, const string & delimiter) {
+	
+	string text = "";
+	
+	for (short i = 0; i < size; i++)
+		text += arr[i] + delimiter;
+
+	return text.substr(0, text.length() - delimiter.length());
+}
+string ReverseString(const string & text1) {
+	
+	string text2 = "";
+	vector <string > vString = String::SpliteString(text1);
+	vector<string >::iterator iter = vString.end();
+	
+	while (iter != vString.begin()) {
+		iter--;
+		text2 += *iter + " ";
+	}
+	
+	return Trim(text2);
+
+}
+string ReplaceWordInString(string text, string wordToReplace, string replaceTo) {
+	short pos;
+	while ((pos = text.find(wordToReplace)) != string::npos) {
+		text.replace(pos, wordToReplace.length(), replaceTo);
+	}
+	return text;
+}
+string ReplaceWordInStringCustom(string text, string wordToReplace, string replaceTo, bool MatchCase = true) {
+	
+
+	if (text.find(wordToReplace) == string::npos)
+		return text;
+
+	vector <string> vString = String::SpliteString(text);
+	
+	for (string& word : vString) {
+		if (MatchCase)
+		{
+			if (word == wordToReplace)
+				word = replaceTo;
+		}
+		else {
+			if (String::UpperAllString(word) == String::UpperAllString(wordToReplace))
+				word = replaceTo;
+		}
+
+	}
+	return JoinString(vString , " ");
+}
+
+
+//problem 44 / 3
+bool IsPunct(char c) {
+	if ((33 <= c && c <= 47) || (58 <= c && c <= 64) || (123 <= c && c <= 126))
+		return true;
+	return false;
+}
+// my code
+string MyRemovePunctuatoin(string text) {
+
+	for (short i = 0; i < text.length(); i++) {
+		if (IsPunct(text[i]))
+		{
+			text.erase(i,1);
+			i--;
+		}
+	}
+	return text;
+}
+// abu had's code
+string RemovePunctuatoin(string text1) {
+	string text2 = "";
+
+	for (char & ch : text1) {
+		if (!IsPunct(ch))
+		{
+			text2 += ch;
+		}
+	}
+	return text2;
+}
+
+
+
+
+int main() {
+	srand((unsigned)time(NULL));
+	string text = Read::ReadString("string : ");
+	
+	cout << RemovePunctuatoin(text);
+
+
+
+
+	return 0;
+}
+
+	
